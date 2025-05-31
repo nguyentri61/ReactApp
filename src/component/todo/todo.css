@@ -1,0 +1,104 @@
+.todo-container {
+    background: #ffffff;
+    width: 100%;
+    margin: 100px auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Title */
+.todo-title {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: lab(42.63% 64.42 48.55 / 0.897);
+}
+
+/* Add task */
+.todo-add {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.todo-add input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+.todo-add input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.todo-add button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.todo-add button:hover {
+    background-color: #0056b3;
+}
+
+/* Task list */
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.todo-list div {
+    background-color: #f1f3f5;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.todo-list div:hover {
+    background-color: #e0e4e7;
+}
+
+/* Logo */
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
