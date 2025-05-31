@@ -5,11 +5,19 @@ import TodoList from "./component/todo/TodoList";
 
 const App = () => {
 
+  const listTasks = {
+    name: "Learning English",
+    completed: false,
+    id: 1,
+  }
+
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list</div>
       <TodoAdd />
-      <TodoList />
+      <TodoList
+        tasks={listTasks}
+      />
       <div className="todo-img">
         <img src={reactLogo} className="logo react" alt="React Logo" />
       </div>
