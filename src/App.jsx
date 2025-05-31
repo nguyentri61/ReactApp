@@ -11,10 +11,16 @@ const App = () => {
     id: 1,
   }
 
+  const addNewTask = (name) => {
+    alert(`New task ${name} added!`);
+  }
+
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list</div>
-      <TodoAdd />
+      <TodoAdd
+        addNewTask={addNewTask}
+      />
       <TodoList
         tasks={listTasks}
       />
