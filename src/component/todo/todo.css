@@ -58,7 +58,7 @@
     gap: 12px;
 }
 
-.todo-list div {
+.todo-list .todo-item {
     background-color: #f1f3f5;
     padding: 12px 16px;
     border-radius: 8px;
@@ -67,7 +67,7 @@
     transition: background-color 0.3s ease;
 }
 
-.todo-list div:hover {
+.todo-list .todo-item:hover {
     background-color: #e0e4e7;
 }
 
@@ -91,6 +91,23 @@
 
 .logo.react:hover {
     filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.todo-item button {
+    background-color: #ff4d4f;
+    /* đỏ nhạt */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.todo-item button:hover {
+    background-color: #d9363e;
+    /* đỏ đậm hơn khi hover */
 }
 
 @keyframes logo-spin {

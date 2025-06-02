@@ -8,49 +8,40 @@ const App = () => {
 
   const addNewTask = (name) => {
     alert(`New task ${name} added!`);
-    setTodoList((prevState) => {
-      return [
+
+    // setTodoList có thể sử dụng hàm callback để lấy giá trị hiện tại của todoList
+    // và biến trong hàm callback này sẽ nhận vào giá trị hiện tại của todoList do react mặc định cung cấp
+    setTodoList(prevState =>
+      [
         ...prevState,
         {
           id: prevState.length + 1,
           name: name,
-          completed: false,
+
         }
       ]
-    })
+    )
+  }
+
+  const deleteTask = (id) => {
+    setTodoList((prevState) => {
+      return prevState.filter(item => item.id !== id);
+    });
   }
 
   const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      name: "Learning English",
-      completed: false,
-    },
-    {
-      id: 2,
-      name: "Learning React",
-      completed: false,
-    },
-    {
-      id: 3,
-      name: "Learning NodeJS",
-      completed: false,
-    },
-    {
-      id: 4,
-      name: "Learning NextJS",
-      completed: false,
-    },
-    {
-      id: 5,
-      name: "Learning TypeScript",
-      completed: false,
-    },
-    {
-      id: 6,
-      name: "Learning Redux",
-      completed: false,
-    },
+    // {
+    //   id: 1,
+    //   name: "Learning English",
+    // },
+    // {
+    //   id: 2,
+    //   name: "Learning React",
+    // },
+    // {
+    //   id: 3,
+    //   name: "Learning NodeJS",
+    // }
   ]);
 
   return (
@@ -59,12 +50,17 @@ const App = () => {
       <TodoAdd
         addNewTask={addNewTask}
       />
-      <TodoList
-        todoList={todoList}
-      />
-      <div className="todo-img">
-        <img src={reactLogo} className="logo react" alt="React Logo" />
-      </div>
+
+      {todoList.length > 0 ?
+        <TodoList
+          deleteTask={deleteTask}
+          todoList={todoList}
+        />
+        :
+        <div className="todo-img">
+          <img src={reactLogo} className="logo react" alt="React Logo" />
+        </div>
+      }
     </div>
   )
 }

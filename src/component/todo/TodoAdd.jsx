@@ -4,7 +4,7 @@ const TodoAdd = (props) => {
 
     const { addNewTask } = props;
 
-    const [nameValue, setNameValue] = useState("Tri");
+    const [nameValue, setNameValue] = useState("");
 
     const handleOnChange = (name) => {
         setNameValue(name);

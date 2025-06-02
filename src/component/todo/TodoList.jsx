@@ -1,22 +1,20 @@
 const TodoList = (props) => {
 
-    const { todoList } = props;
+    const { todoList, deleteTask } = props;
+
+    const handleDelete = (id) => {
+        console.log(`Delete item with id: ${id}`);
+        deleteTask(id);
+    }
 
     return (
         <div className="todo-list">
-
             {todoList.map((item, index) => (
-                <div key={index} className="todo-item">
+                <div key={item.id} className="todo-item">
                     <div>{item.name}</div>
-                    <button>Delete</button>
+                    <button onClick={() => handleDelete(item.id)}>Delete</button>
                 </div>
             ))}
-
-            {/* <div>Learning English </div>
-            <div>Learning Spanish </div>
-            <div>
-                {JSON.stringify(todoList)}
-            </div> */}
         </div>
     )
 }
