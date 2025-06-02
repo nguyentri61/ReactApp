@@ -4,25 +4,25 @@ const TodoAdd = (props) => {
 
     const { addNewTask } = props;
 
+    const [nameValue, setNameValue] = useState("Tri");
+
     const handleOnChange = (name) => {
-        console.log(name);
         setNameValue(name);
     }
 
-    const name = "Tri";
+    const handleOnClick = () => {
+        addNewTask(nameValue);
+        setNameValue("");
+    }
 
-    const [nameValue, setNameValue] = useState(name);
 
     return (
         <div className="todo-add">
             <input type="text" placeholder="Enter your task"
                 onChange={(e) => handleOnChange(e.target.value)}
+                value={nameValue}
             />
-            <button onClick={() => addNewTask(nameValue)}>Add</button>
-
-            <div>
-                My text is: {nameValue}
-            </div>
+            <button onClick={handleOnClick}>Add</button>
         </div>
 
 

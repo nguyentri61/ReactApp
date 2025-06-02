@@ -6,14 +6,18 @@ import { useState } from 'react';
 
 const App = () => {
 
-  const listTasks = {
-    id: 1,
-    name: "Learning English",
-    completed: false,
-  }
-
   const addNewTask = (name) => {
     alert(`New task ${name} added!`);
+    setTodoList((prevState) => {
+      return [
+        ...prevState,
+        {
+          id: prevState.length + 1,
+          name: name,
+          completed: false,
+        }
+      ]
+    })
   }
 
   const [todoList, setTodoList] = useState([
@@ -56,7 +60,6 @@ const App = () => {
         addNewTask={addNewTask}
       />
       <TodoList
-        tasks={listTasks}
         todoList={todoList}
       />
       <div className="todo-img">
