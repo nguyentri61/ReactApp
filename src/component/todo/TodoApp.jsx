@@ -3,10 +3,11 @@ import TodoList from "./TodoList";
 import reactLogo from '../../assets/react.svg';
 import { useState } from 'react';
 import "./todo.css";
+import { Button, notification } from "antd";
 
 const TodoApp = () => {
     const addNewTask = (name) => {
-        alert(`New task ${name} added!`);
+        // alert(`New task ${name} added!`);
 
         // setTodoList có thể sử dụng hàm callback để lấy giá trị hiện tại của todoList
         // và biến trong hàm callback này sẽ nhận vào giá trị hiện tại của todoList do react mặc định cung cấp
@@ -20,6 +21,12 @@ const TodoApp = () => {
                 }
             ]
         )
+        notification.success({
+            message: 'Thêm task thành công',
+            description: `Task "${name}" đã được thêm vào danh sách.`,
+            placement: 'topRight',
+        });
+
     }
 
     const deleteTask = (id) => {
