@@ -18,8 +18,14 @@ const GetAllUserAPI = () => {
 
 }
 
+const UpdateUserAPI = (data) => {
+    const URL_BACKEND = "/users/update";
+    return axios.put(URL_BACKEND, data)
+}
+
 export {
     CreateUserAPI,
-    GetAllUserAPI
+    GetAllUserAPI,
+    UpdateUserAPI
 }
 

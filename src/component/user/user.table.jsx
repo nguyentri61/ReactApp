@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { notification, Space, Table, Tag } from 'antd';
-import { GetAllUserAPI } from '../../services/api.service';
+import { Table } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import UpdateUserModal from './update.user.modal';
+import { useState } from 'react';
 
-const UserTable = () => {
+const UserTable = (props) => {
 
+    const { dataUsers, GetAllUser } = props
 
-    const [dataUsers, setDataUsers] = useState([]);
-
-    useEffect(() => {
-        GetAllUser()
-    }, []);
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
+    const [dataUpdate, setDataUpdate] = useState(null)
 
     const columns = [
         {
@@ -28,40 +27,35 @@ const UserTable = () => {
             dataIndex: 'phone',
             key: 'phone',
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div className="flex items-center gap-3">
+                    <EditOutlined className="text-lg text-gray-600 hover:text-blue-500 hover:scale-110 transition-transform cursor-pointer"
+                        onClick={() => {
+                            setDataUpdate(record)
+                            setIsModalUpdateOpen(true);
+                        }}
+                    />
+                    <DeleteOutlined className="text-lg text-gray-600 hover:text-red-500 hover:scale-110 transition-transform cursor-pointer" />
+                </div>
+            ),
+        },
     ];
-    //     {
-    //         key: '1',
-    //         name: 'John Brown',
-    //         age: 32,
-    //         address: 'New York No. 1 Lake Park',
-    //         tags: ['nice', 'developer'],
-    //     },
-    //     {
-    //         key: '2',
-    //         name: 'Jim Green',
-    //         age: 42,
-    //         address: 'London No. 1 Lake Park',
-    //         tags: ['loser'],
-    //     },
-    //     {
-    //         key: '3',
-    //         name: 'Joe Black',
-    //         age: 32,
-    //         address: 'Sydney No. 1 Lake Park',
-    //         tags: ['cool', 'teacher'],
-    //     },
-    // ];
-
-    const GetAllUser = async () => {
-        const res = await GetAllUserAPI();
-        console.log(">>> check res get", res);
-        setDataUsers(res.data);
-    }
-
-
 
     return (
-        <Table columns={columns} dataSource={dataUsers} rowKey="id" />
+
+        <>
+            <Table columns={columns} dataSource={dataUsers} rowKey="id" />
+            <UpdateUserModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                GetAllUser={GetAllUser}
+            />
+        </>
     )
 
 }
