@@ -1,21 +1,57 @@
-import { Table } from 'antd';
+import { Button, notification, Popconfirm, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
+import { DeleteUserAPI } from '../../services/api.service';
+import { EditIcon, LucideDelete, Pencil, Trash } from 'lucide-react';
+import ViewUserDetail from './view.user.detail';
 
 const UserTable = (props) => {
 
     const { dataUsers, GetAllUser } = props
-
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
     const [dataUpdate, setDataUpdate] = useState(null)
+
+    const [dataDetail, setDataDetail] = useState(null)
+    const [isViewDetailOpen, setIsViewDetailOpen] = useState(false)
+
+    const handleDeleteUser = async (id) => {
+        const res = await DeleteUserAPI(id)
+        if (res.data) {
+            notification.success({
+                message: "Delete User Successfully",
+                showProgress: true,
+                duration: 2,
+            })
+            await GetAllUser()
+        } else {
+            notification.error({
+                message: "Delete User Failed",
+                description: res.message,
+                showProgress: true,
+                duration: 2,
+            })
+        }
+    }
 
     const columns = [
         {
             title: 'Full Name',
             dataIndex: 'fullName',
             key: 'fullName',
-            // render: text => <a>{text}</a>,
+            render: (_, record) => {
+                return (
+                    <a className="hover:underline"
+                        onClick={() => {
+                            setDataDetail(record)
+                            setIsViewDetailOpen(true)
+                        }}
+                    >
+                        {record.fullName}
+                    </a>
+                )
+            }
+
         },
         {
             title: 'Email',
@@ -32,13 +68,25 @@ const UserTable = (props) => {
             key: 'action',
             render: (_, record) => (
                 <div className="flex items-center gap-3">
-                    <EditOutlined className="text-lg text-gray-600 hover:text-blue-500 hover:scale-110 transition-transform cursor-pointer"
+                    <Pencil
+                        className="text-lg text-blue-500 hover:text-blue-600 hover:scale-110 transition-transform duration-200 cursor-pointer"
                         onClick={() => {
-                            setDataUpdate(record)
+                            setDataUpdate(record);
                             setIsModalUpdateOpen(true);
                         }}
                     />
-                    <DeleteOutlined className="text-lg text-gray-600 hover:text-red-500 hover:scale-110 transition-transform cursor-pointer" />
+
+                    <Popconfirm
+                        title="Delete User"
+                        description="Are you sure to delete this user?"
+                        onConfirm={() => handleDeleteUser(record.id)}
+                        okText="Delete"
+                        cancelText="Cancel"
+                    >
+                        <Trash
+                            className="text-lg text-red-500 hover:text-red-600 hover:scale-110 transition-transform duration-200 cursor-pointer"
+                        />
+                    </Popconfirm>
                 </div>
             ),
         },
@@ -47,12 +95,29 @@ const UserTable = (props) => {
     return (
 
         <>
-            <Table columns={columns} dataSource={dataUsers} rowKey="id" />
+            <Table columns={columns} dataSource={dataUsers} rowKey="id"
+                pagination={
+                    {
+                        current: 1,
+                        pageSize: 10,
+                        showSizeChanger: true,
+                        total: 99,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+            />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
+                GetAllUser={GetAllUser}
+            />
+
+            <ViewUserDetail
+                isViewDetailOpen={isViewDetailOpen}
+                setIsViewDetailOpen={setIsViewDetailOpen}
+                dataDetail={dataDetail}
+                setDataDetail={dataDetail}
                 GetAllUser={GetAllUser}
             />
         </>

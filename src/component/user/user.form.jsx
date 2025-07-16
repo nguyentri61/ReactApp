@@ -28,7 +28,15 @@ const UserForm = (props) => {
         } else {
             notification.error({
                 message: "Create user failed",
-                description: JSON.stringify(res.message),
+                description: Array.isArray(res.message)
+                    ? (
+                        <div>
+                            {res.message.map((msg, index) => (
+                                <div key={index}>{msg}</div>
+                            ))}
+                        </div>
+                    )
+                    : <div>{res.message}</div>,
                 showProgress: true,
                 duration: 3,
             })

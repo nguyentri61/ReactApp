@@ -23,9 +23,36 @@ const UpdateUserAPI = (data) => {
     return axios.put(URL_BACKEND, data)
 }
 
+const DeleteUserAPI = (id) => {
+    const URL_BACKEND = `/users/${id}`;
+    return axios.delete(URL_BACKEND)
+}
+
 export {
     CreateUserAPI,
     GetAllUserAPI,
-    UpdateUserAPI
+    UpdateUserAPI,
+    DeleteUserAPI
 }
 
+// upload file img
+
+const UploadImage = (file, type) => {
+    const URL_BACKEND = `/image/upload`;
+
+    let config = {
+        headers: {
+            "upload-type": type,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+
+    const bodyFormData = new FormData()
+    bodyFormData.append("file", file)
+
+    return axios.post(URL_BACKEND, bodyFormData, config)
+}
+
+export {
+    UploadImage
+}

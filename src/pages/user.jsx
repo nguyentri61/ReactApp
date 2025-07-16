@@ -13,7 +13,7 @@ const UserPage = () => {
 
     const GetAllUser = async () => {
         const res = await GetAllUserAPI();
-        // console.log(">>> check res get", res);
+        console.log(">>> check res get", res);
         setDataUsers(res.data);
     }
 
