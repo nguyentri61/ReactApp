@@ -15,7 +15,11 @@ const CreateUserAPI = (fullName, email, password, phone) => {
 const GetAllUserAPI = () => {
     const URL_BACKEND = "/users";
     return axios.get(URL_BACKEND)
+}
 
+const GetAllUserWithPage = (page, size) => {
+    const URL_BACKEND = `/users/paging?page=${page}&size=${size}`;
+    return axios.get(URL_BACKEND)
 }
 
 const UpdateUserAPI = (data) => {
@@ -32,7 +36,8 @@ export {
     CreateUserAPI,
     GetAllUserAPI,
     UpdateUserAPI,
-    DeleteUserAPI
+    DeleteUserAPI,
+    GetAllUserWithPage
 }
 
 // upload file img

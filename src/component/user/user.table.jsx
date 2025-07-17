@@ -8,7 +8,9 @@ import ViewUserDetail from './view.user.detail';
 
 const UserTable = (props) => {
 
-    const { dataUsers, GetAllUser } = props
+    const { dataUsers, GetAllUser,
+        current, pageSize, total,
+        setCurrent, setPageSize, setTotal } = props
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
     const [dataUpdate, setDataUpdate] = useState(null)
 
@@ -35,6 +37,16 @@ const UserTable = (props) => {
     }
 
     const columns = [
+
+        {
+            title: 'STT',
+            render: (_, record, index) => {
+                return (
+                    <>{(index + 1) + (current - 1) * pageSize}</>
+                )
+            }
+
+        },
         {
             title: 'Full Name',
             dataIndex: 'fullName',
@@ -92,18 +104,33 @@ const UserTable = (props) => {
         },
     ];
 
+    const onChange = (pagination, filters, sorter, extra) => {
+        // console.log("Check >>>: ", { pagination, filters, sorter, extra })
+        // setCurrent(pagination.current);
+        // setPageSize(pagination.pageSize)
+
+        if (pagination && pagination.current && +pagination.current !== +current) {
+            setCurrent(+pagination.current);
+        }
+
+        if (pagination && pagination.pageSize && +pagination.pageSize !== +pageSize) {
+            setPageSize(+pagination.pageSize);
+        }
+
+    };
     return (
 
         <>
             <Table columns={columns} dataSource={dataUsers} rowKey="id"
                 pagination={
                     {
-                        current: 1,
-                        pageSize: 10,
+                        current: current,
+                        pageSize: pageSize,
                         showSizeChanger: true,
-                        total: 99,
+                        total: total,
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
                     }}
+                onChange={onChange}
             />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
