@@ -8,7 +8,16 @@ const CreateUserAPI = (fullName, email, password, phone) => {
         password: password,
         phone: phone
     }
+    return axios.post(URL_BACKEND, data)
+}
 
+const RegisterAPI = (data) => {
+    const URL_BACKEND = "/users/save";
+    return axios.post(URL_BACKEND, data)
+}
+
+const LoginAPI = (data) => {
+    const URL_BACKEND = "/auth/login";
     return axios.post(URL_BACKEND, data)
 }
 
@@ -37,7 +46,8 @@ export {
     GetAllUserAPI,
     UpdateUserAPI,
     DeleteUserAPI,
-    GetAllUserWithPage
+    GetAllUserWithPage,
+    RegisterAPI, LoginAPI
 }
 
 // upload file img
