@@ -26,8 +26,8 @@ const GetAllUserAPI = () => {
     return axios.get(URL_BACKEND)
 }
 
-const GetAllUserWithPage = (page, size) => {
-    const URL_BACKEND = `/users/paging?page=${page}&size=${size}`;
+const GetAllUserWithPage = (current, pageSize) => {
+    const URL_BACKEND = `/users/paging?current=${current}&pageSize=${pageSize}`;
     return axios.get(URL_BACKEND)
 }
 
@@ -41,13 +41,18 @@ const DeleteUserAPI = (id) => {
     return axios.delete(URL_BACKEND)
 }
 
+const GetAccount = () => {
+    const URL_BACKEND = `/auth/account`;
+    return axios.get(URL_BACKEND)
+}
+
 export {
     CreateUserAPI,
     GetAllUserAPI,
     UpdateUserAPI,
     DeleteUserAPI,
     GetAllUserWithPage,
-    RegisterAPI, LoginAPI
+    RegisterAPI, LoginAPI, GetAccount
 }
 
 // upload file img

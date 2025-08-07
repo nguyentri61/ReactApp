@@ -12,7 +12,6 @@ const LoginPage = () => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
 
     const onFinish = async (values) => {
         console.log('Received values of form: ', values);
@@ -88,6 +87,11 @@ const LoginPage = () => {
                                 <Input.Password
                                     prefix={<LockOutlined className="text-gray-400" />}
                                     placeholder="Enter your password"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            form.submit();
+                                        }
+                                    }}
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                     className="!rounded-lg !border-2 !border-gray-200 !p-3"
                                 />

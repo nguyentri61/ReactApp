@@ -16,21 +16,22 @@ const UserPage = () => {
     }, [current, pageSize]);
 
     const GetAllUser = async () => {
-        const res = await GetAllUserWithPage(current - 1, pageSize);
+        const res = await GetAllUserWithPage(current, pageSize);
         // console.log(">>> check res get", res);
-        setDataUsers(res.data.content);
+        setDataUsers(res.data.result);
         // Chỉ set lại nếu giá trị khác
-        if (res.data.pageable.pageNumber + 1 !== current) {
-            setCurrent(res.data.pageable.pageNumber + 1);
+        if (res.data.meta.page !== current) {
+            setCurrent(res.meta.page);
         }
 
-        if (res.data.pageable.pageSize !== pageSize) {
-            setPageSize(res.data.pageable.pageSize);
+        if (res.data.meta.pageSize !== pageSize) {
+            setPageSize(res.meta.pageSize);
         }
-        setTotal(res.data.totalElements);
+
+        setTotal(res.data.meta.total);
     }
 
-    console.log("check current: ", current)
+    // console.log("check current: ", current)
 
     return (
         <div style={{ padding: "20px" }}>
